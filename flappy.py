@@ -2,10 +2,14 @@ from itertools import cycle
 import random
 import sys
 import pygame
+import math
 from pygame.locals import *
 FPS = 30
 SCREENWIDTH  = 800
 SCREENHEIGHT = 600
+EXP = 0 #implement later
+HP = (EXP * 5) + 1 #don't worry about it
+ENEHP = (EXP * 12) + 3 #don't worry about it
 # amount by which base can maximum shift to left
 PIPEGAPSIZE  = 100 # gap between upper and lower part of pipe
 BASEY        = SCREENHEIGHT * 0.79
