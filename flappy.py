@@ -19,26 +19,12 @@ IMAGES, SOUNDS, HITMASKS = {}, {}, {}
 '''todo: set the sprites right'''
 PLAYERS_LIST = (
     # paddle
-    ('assets/sprites/')#add sprite here
-    # red bird
-    '''(
-        'assets/sprites/redbird-upflap.png',
-        'assets/sprites/redbird-midflap.png',
-        'assets/sprites/redbird-downflap.png',
-    ),
-    # blue bird
     (
         # amount by which base can maximum shift to left
         'assets/sprites/bluebird-upflap.png',
         'assets/sprites/bluebird-midflap.png',
         'assets/sprites/bluebird-downflap.png',
     ),
-    # yellow bird
-    (
-        'assets/sprites/yellowbird-upflap.png',
-        'assets/sprites/yellowbird-midflap.png',
-        'assets/sprites/yellowbird-downflap.png',
-    ),'''
 )
 # list of backgrounds
 BACKGROUNDS_LIST = (
