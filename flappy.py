@@ -3,7 +3,14 @@ import random
 import sys
 import pygame
 import math
+import os.path
 from pygame.locals import *
+#to those reading this code,
+#1-800-273-8255 is available if you feel the urge to commit suicide
+#please call instead of following through
+pygame.mixer.init(44100,-16,2,2048)
+pygame.init()
+FPSCLOCK = pygame.time.Clock()
 FPS = 30
 SCREENWIDTH  = 280
 SCREENHEIGHT = 530
@@ -42,8 +49,6 @@ except NameError:
     xrange = range
 def main():
     global SCREEN, FPSCLOCK
-    pygame.init()
-    FPSCLOCK = pygame.time.Clock()
     SCREEN = pygame.display.set_mode((SCREENWIDTH, SCREENHEIGHT))
     pygame.display.set_caption('Flappy Bird')
     # numbers sprites for score display
@@ -66,10 +71,10 @@ def main():
     # base (ground) sprite
     IMAGES['base'] = pygame.image.load('assets/sprites/base-aesthetic.png').convert_alpha()
     # sounds
-    #if 'win' in sys.platform:
-    soundExt = '.wav'
-    #else:
-    #    soundExt = '.ogg'
+    if 'win' in sys.platform:
+        soundExt = '.wav'
+    else:
+        soundExt = '.ogg'
     SOUNDS['music']  = pygame.mixer.Sound('assets/audio/soundloop0' + soundExt)
     SOUNDS['die']    = pygame.mixer.Sound('assets/audio/die' + soundExt)
     SOUNDS['hit']    = pygame.mixer.Sound('assets/audio/hit' + soundExt)
@@ -111,7 +116,6 @@ def main():
 def showWelcomeAnimation(): # change this
     """Shows welcome screen animation of flappy bird"""
     # index of player to blit on screen
-    SOUNDS['music'].play()
     playerIndex = 0
     playerIndexGen = cycle([0, 1, 2, 1])
     # iterator used to change playerIndex after every 5th iteration
@@ -154,7 +158,9 @@ def showWelcomeAnimation(): # change this
         pygame.display.update()
         FPSCLOCK.tick(FPS)
 def mainGame(movementInfo):
-    SOUNDS['music'].play()
+    pygame.mixer.music.load(str(os.getcwd())+'/assets/audio/soundloop0.ogg')
+    pygame.mixer.music.set_volume(.6)
+    pygame.mixer.music.play(-1)
     score = playerIndex = loopIter = 0
     playerIndexGen = movementInfo['playerIndexGen']
     playerx, playery = int(SCREENWIDTH * 0.2), movementInfo['playery']
@@ -175,9 +181,9 @@ def mainGame(movementInfo):
     ]
     pipeVelX = -4
     # player velocity, max velocity, downward accleration, accleration on flap
-    playerVelY    =  -9   # player's velocity along Y, default same as playerFlapped
+    playerVelY    =  -4   # player's velocity along Y, default same as playerFlapped
     playerMaxVelY =  10   # max vel along Y, max descend speed
-    playerMinVelY =  -8   # min vel along Y, max ascend speed
+    playerMinVelY =  -9   # min vel along Y, max ascend speed
     playerAccY    =   1   # players downward accleration
     playerRot     =  45   # player's rotation
     playerVelRot  =   3   # angular speed
@@ -326,18 +332,6 @@ def getRandomPipe():
         {'x': pipeX, 'y': gapY - pipeHeight},  # upper pipe
         {'x': pipeX, 'y': gapY + PIPEGAPSIZE}, # lower pipe
     ]
-    '''
-def showScore(score):
-    """displays score in center of screen"""
-    scoreDigits = [int(x) for x in list(str(score))]
-    totalWidth = 0 # total width of all numbers to be printed
-    for digit in scoreDigits:
-        totalWidth += IMAGES['numbers'][digit].get_width()
-    Xoffset = (SCREENWIDTH - totalWidth) / 2
-    for digit in scoreDigits:
-        SCREEN.blit(IMAGES['numbers'][digit], (Xoffset, SCREENHEIGHT * 0.1))
-        Xoffset += IMAGES['numbers'][digit].get_width()
-    '''
 def checkCrash(player, upperPipes, lowerPipes):
     """returns True if player collders with base or pipes."""
     pi = player['index']
