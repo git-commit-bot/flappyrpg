@@ -28,8 +28,8 @@ PLAYERS_LIST = (
 )
 # list of backgrounds
 BACKGROUNDS_LIST = (
-    'assets/sprites/background-day.png',
-    'assets/sprites/background-night.png',
+    'assets/sprites/day-aesthetic.png',
+    'assets/sprites/night-aesthetic.png',
 )
 # list of pipes
 PIPES_LIST = (
@@ -64,7 +64,7 @@ def main():
     # message sprite for welcome screen
     IMAGES['message'] = pygame.image.load('assets/sprites/message.png').convert_alpha()
     # base (ground) sprite
-    IMAGES['base'] = pygame.image.load('assets/sprites/base.png').convert_alpha()
+    IMAGES['base'] = pygame.image.load('assets/sprites/base-aesthetic.png').convert_alpha()
     # sounds
     if 'win' in sys.platform:
         soundExt = '.wav'
@@ -84,9 +84,9 @@ def main():
         randPlayer = random.randint(0, len(PLAYERS_LIST) - 1)
         IMAGES['player'] = (
             pygame.image.load(PLAYERS_LIST[randPlayer][0]).convert_alpha(),
-        ''' pygame.image.load(PLAYERS_LIST[randPlayer][1]).convert_alpha(),
+            pygame.image.load(PLAYERS_LIST[randPlayer][1]).convert_alpha(),
             pygame.image.load(PLAYERS_LIST[randPlayer][2]).convert_alpha(),
-        ''')
+        )
         # select random pipe sprites
         pipeindex = random.randint(0, len(PIPES_LIST) - 1)
         IMAGES['pipe'] = (
