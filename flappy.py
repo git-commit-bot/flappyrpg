@@ -5,8 +5,8 @@ import pygame
 import math
 from pygame.locals import *
 FPS = 30
-SCREENWIDTH  = 800
-SCREENHEIGHT = 600
+SCREENWIDTH  = 280
+SCREENHEIGHT = 530
 EXP = 0 #implement later
 HP = (EXP * 5) + 1 #don't worry about it
 ENEHP = (EXP * 12) + 3 #don't worry about it
@@ -66,10 +66,10 @@ def main():
     # base (ground) sprite
     IMAGES['base'] = pygame.image.load('assets/sprites/base-aesthetic.png').convert_alpha()
     # sounds
-    if 'win' in sys.platform:
-        soundExt = '.wav'
-    else:
-        soundExt = '.ogg'
+    #if 'win' in sys.platform:
+    soundExt = '.wav'
+    #else:
+    #    soundExt = '.ogg'
     SOUNDS['music']  = pygame.mixer.Sound('assets/audio/soundloop0' + soundExt)
     SOUNDS['die']    = pygame.mixer.Sound('assets/audio/die' + soundExt)
     SOUNDS['hit']    = pygame.mixer.Sound('assets/audio/hit' + soundExt)
@@ -111,6 +111,7 @@ def main():
 def showWelcomeAnimation(): # change this
     """Shows welcome screen animation of flappy bird"""
     # index of player to blit on screen
+    SOUNDS['music'].play()
     playerIndex = 0
     playerIndexGen = cycle([0, 1, 2, 1])
     # iterator used to change playerIndex after every 5th iteration
@@ -125,7 +126,7 @@ def showWelcomeAnimation(): # change this
     # player shm for up-down motion on welcome screen
     playerShmVals = {'val': 0, 'dir': 1}
     while True:
-        SOUNDS['music'].play()
+
         for event in pygame.event.get():
             if event.type == QUIT or (event.type == KEYDOWN and event.key == K_ESCAPE):
                 pygame.quit()
@@ -153,6 +154,7 @@ def showWelcomeAnimation(): # change this
         pygame.display.update()
         FPSCLOCK.tick(FPS)
 def mainGame(movementInfo):
+    SOUNDS['music'].play()
     score = playerIndex = loopIter = 0
     playerIndexGen = movementInfo['playerIndexGen']
     playerx, playery = int(SCREENWIDTH * 0.2), movementInfo['playery']
