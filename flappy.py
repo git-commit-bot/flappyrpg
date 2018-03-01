@@ -18,7 +18,7 @@ EXP = 0 #implement later
 HP = (EXP * 5) + 1 #don't worry about it
 ENEHP = (EXP * 12) + 3 #don't worry about it
 # amount by which base can maximum shift to left
-PIPEGAPSIZE  = 100 # gap between upper and lower part of pipe
+PIPEGAPSIZE  = 220 # gap between upper and lower part of pipe
 BASEY        = SCREENHEIGHT * 0.79
 # image, sound and hitmask  dicts
 IMAGES, SOUNDS, HITMASKS = {}, {}, {}
@@ -51,19 +51,6 @@ def main():
     global SCREEN, FPSCLOCK
     SCREEN = pygame.display.set_mode((SCREENWIDTH, SCREENHEIGHT))
     pygame.display.set_caption('Flappy Bird')
-    # numbers sprites for score display
-    '''IMAGES['numbers'] = (
-        pygame.image.load('assets/sprites/0.png').convert_alpha(),
-        pygame.image.load('assets/sprites/1.png').convert_alpha(),
-        pygame.image.load('assets/sprites/2.png').convert_alpha(),
-        pygame.image.load('assets/sprites/3.png').convert_alpha(),
-        pygame.image.load('assets/sprites/4.png').convert_alpha(),
-        pygame.image.load('assets/sprites/5.png').convert_alpha(),
-        pygame.image.load('assets/sprites/6.png').convert_alpha(),
-        pygame.image.load('assets/sprites/7.png').convert_alpha(),
-        pygame.image.load('assets/sprites/8.png').convert_alpha(),
-        pygame.image.load('assets/sprites/9.png').convert_alpha()
-    )'''
     # game over sprite
     IMAGES['gameover'] = pygame.image.load('assets/sprites/gameover.png').convert_alpha()
     # message sprite for welcome screen
@@ -158,9 +145,9 @@ def showWelcomeAnimation(): # change this
         pygame.display.update()
         FPSCLOCK.tick(FPS)
 def mainGame(movementInfo):
-    pygame.mixer.music.load(str(os.getcwd())+'/assets/audio/soundloop0.ogg')
-    pygame.mixer.music.set_volume(.6)
-    pygame.mixer.music.play(-1)
+    #pygame.mixer.music.load(str(os.getcwd())+'/assets/audio/soundloop0.ogg')
+    #pygame.mixer.music.set_volume(.6)
+    #pygame.mixer.music.play(-1)
     score = playerIndex = loopIter = 0
     playerIndexGen = movementInfo['playerIndexGen']
     playerx, playery = int(SCREENWIDTH * 0.2), movementInfo['playery']
@@ -177,17 +164,17 @@ def mainGame(movementInfo):
     # list of lowerpipe
     lowerPipes = [
         {'x': SCREENWIDTH + 200, 'y': newPipe1[1]['y']},
-        {'x': SCREENWIDTH + 200 + (SCREENWIDTH / 2), 'y': newPipe2[1]['y']},
+        {'x': SCREENWIDTH + 200 + (SCREENWIDTH / 2), 'y': newPipe2[1]['y']}
     ]
     pipeVelX = -4
     # player velocity, max velocity, downward accleration, accleration on flap
     playerVelY    =  -4   # player's velocity along Y, default same as playerFlapped
-    playerMaxVelY =  10   # max vel along Y, max descend speed
-    playerMinVelY =  -9   # min vel along Y, max ascend speed
-    playerAccY    =   1   # players downward accleration
-    playerRot     =  45   # player's rotation
-    playerVelRot  =   3   # angular speed
-    playerRotThr  =  20   # rotation threshold
+    playerMaxVelY =  7   # max vel along Y, max descend speed
+    playerMinVelY =  -5   # min vel along Y, max ascend speed
+    playerAccY    =   .5   # players downward accleration
+    playerRot     =  0   # player's rotation
+    playerVelRot  =   0   # angular speed
+    playerRotThr  =  0   # rotation threshold
     playerFlapAcc =  -9   # players speed on flapping
     playerFlapped = False # True when player flaps
     while True:
