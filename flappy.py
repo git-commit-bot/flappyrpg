@@ -10,6 +10,7 @@ from pygame.locals import *
 #please call instead of following through
 pygame.mixer.init(44100,-16,2,2048)
 pygame.init()
+pygame.key.set_repeat(50,10)
 FPSCLOCK = pygame.time.Clock()
 FPS = 30
 SCREENWIDTH  = 280
@@ -123,7 +124,7 @@ def showWelcomeAnimation(): # change this
             if event.type == QUIT or (event.type == KEYDOWN and event.key == K_ESCAPE):
                 pygame.quit()
                 sys.exit()
-            if event.type == KEYDOWN and (event.key == K_SPACE or event.key == K_UP):
+            if event.type == KEYDOWN and (event.key == K_SPACE or event.key == K_UP or event.key == K_k):
                 # make first flap sound and return values for mainGame
                 SOUNDS['wing'].play()
                 return {
@@ -146,9 +147,14 @@ def showWelcomeAnimation(): # change this
         pygame.display.update()
         FPSCLOCK.tick(FPS)
 def mainGame(movementInfo):
-    #pygame.mixer.music.load(str(os.getcwd())+'/assets/audio/soundloop0.ogg')
-    #pygame.mixer.music.set_volume(.6)
-    #pygame.mixer.music.play(-1)
+    try:
+        pygame.mixer.music.load(str(os.getcwd())+'/assets/audio/loopsong0.ogg')
+        pygame.mixer.music.set_volume(.6)
+        pygame.mixer.music.play(-1)
+    except pygame.error:
+        pygame.mixer.music.load(str(os.getcwd())+'\\assets\\audio\\loopsong0.wav')
+        pygame.mixer.music.set_volume(.6)
+        pygame.mixer.music.play(-1)
     score = playerIndex = loopIter = 0
     playerIndexGen = movementInfo['playerIndexGen']
     playerx, playery = int(SCREENWIDTH * 0.2), movementInfo['playery']
@@ -183,15 +189,19 @@ def mainGame(movementInfo):
             if event.type == QUIT or (event.type == KEYDOWN and event.key == K_ESCAPE):
                 pygame.quit()
                 sys.exit()
-            if event.type == KEYDOWN and (event.key == K_SPACE or event.key == K_UP):
+            if event.type == KEYDOWN and (event.key == K_SPACE or event.key == K_UP or event.key == K_k):
                 if playery > -2 * IMAGES['player'][0].get_height():
                     playerVelY = playerFlapAcc
                     playerFlapped = True
                     SOUNDS['wing'].play()
+            if event.type == KEYDOWN and (event.key == K_j or event.key == K_DOWN):
+                playerVelY = 0
+                playerMaxVelY = 0
 
         # check for crash here
         crashTest = checkCrash({'x': playerx, 'y': playery, 'index': playerIndex},
                                upperPipes, lowerPipes)
+        playerMaxVelY= 7
         if crashTest[0]:
             return {
                 'y': playery,
