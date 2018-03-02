@@ -21,6 +21,7 @@ ENEHP = (EXP * 12) + 3 #don't worry about it
 PIPEGAPSIZE  = 220 # gap between upper and lower part of pipe
 BASEY        = SCREENHEIGHT * 0.79
 # image, sound and hitmask  dicts
+PLAYER_HEALTH = 1
 IMAGES, SOUNDS, HITMASKS = {}, {}, {}
 # list of all possible players (tuple of 3 positions of flap)
 '''todo: set the sprites right'''
@@ -140,7 +141,7 @@ def showWelcomeAnimation(): # change this
         SCREEN.blit(IMAGES['background'], (0,0))
         SCREEN.blit(IMAGES['player'][playerIndex],
                     (playerx, playery + playerShmVals['val']))
-        SCREEN.blit(IMAGES['message'], (messagex, messagey))
+        #SCREEN.blit(IMAGES['message'], (messagex, messagey))
         SCREEN.blit(IMAGES['base'], (basex, BASEY))
         pygame.display.update()
         FPSCLOCK.tick(FPS)
