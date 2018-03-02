@@ -146,7 +146,7 @@ def showWelcomeAnimation(): # change this
         FPSCLOCK.tick(FPS)
 def mainGame(movementInfo):
     try:
-        pygame.mixer.music.load(str(os.getcwd())+'/assets/audio/loopsong0.ogg')
+        pygame.mixer.music.load(str(os.getcwd())+'/assets/audio/loopsong0.wav')
         pygame.mixer.music.set_volume(.4)
         pygame.mixer.music.play(-1)
     except pygame.error:
