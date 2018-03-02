@@ -203,6 +203,7 @@ def mainGame(movementInfo):
                                upperPipes, lowerPipes)
         playerMaxVelY= 7
         if crashTest[0]:
+            pygame.mixer.music.stop()
             return {
                 'y': playery,
                 'groundCrash': crashTest[1],
@@ -287,7 +288,7 @@ def showGameOverScreen(crashInfo):
             if event.type == QUIT or (event.type == KEYDOWN and event.key == K_ESCAPE):
                 pygame.quit()
                 sys.exit()
-            if event.type == KEYDOWN and (event.key == K_SPACE or event.key == K_UP):
+            if event.type == KEYDOWN and (event.key == K_SPACE or event.key == K_UP or event.key == K_k):
                 if playery + playerHeight >= BASEY - 1:
                     return
         # player y shift
