@@ -22,7 +22,9 @@ ENEHP = (EXP * 12) + 3 #don't worry about it
 PIPEGAPSIZE  = 220 # gap between upper and lower part of pipe
 BASEY        = SCREENHEIGHT * 0.79
 # image, sound and hitmask  dicts
-PLAYER_HEALTH = 1
+score = 0
+PLAYER_HEALTH = 1 + int(.7*score)
+ENEMY_HEALTH = 2 + int(.8*score)
 IMAGES, SOUNDS, HITMASKS = {}, {}, {}
 # list of all possible players (tuple of 3 positions of flap)
 '''todo: set the sprites right'''
@@ -53,10 +55,6 @@ def main():
     global SCREEN, FPSCLOCK
     SCREEN = pygame.display.set_mode((SCREENWIDTH, SCREENHEIGHT))
     pygame.display.set_caption('Flappy Bird')
-    # game over sprite
-    IMAGES['gameover'] = pygame.image.load('assets/sprites/gameover.png').convert_alpha()
-    # message sprite for welcome screen
-    IMAGES['message'] = pygame.image.load('assets/sprites/message.png').convert_alpha()
     # base (ground) sprite
     IMAGES['base'] = pygame.image.load('assets/sprites/base-aesthetic.png').convert_alpha()
     # sounds
@@ -67,7 +65,6 @@ def main():
     SOUNDS['music']  = pygame.mixer.Sound('assets/audio/soundloop0' + soundExt)
     SOUNDS['die']    = pygame.mixer.Sound('assets/audio/docheeu' + soundExt)
     SOUNDS['hit']    = pygame.mixer.Sound('assets/audio/docheeu' + soundExt)
-    SOUNDS['point']  = pygame.mixer.Sound('assets/audio/point' + soundExt)
     SOUNDS['swoosh'] = pygame.mixer.Sound('assets/audio/swoosh' + soundExt)
     SOUNDS['wing']   = pygame.mixer.Sound('assets/audio/wing' + soundExt)
     while True:
@@ -111,11 +108,7 @@ def showWelcomeAnimation(): # change this
     loopIter = 0
     playerx = int(SCREENWIDTH * 0.2)
     playery = int((SCREENHEIGHT - IMAGES['player'][0].get_height()) / 2)
-    messagex = int((SCREENWIDTH - IMAGES['message'].get_width()) / 2)
-    messagey = int(SCREENHEIGHT * 0.12)
     basex = 0
-    # amount by which base can maximum shift to left
-    baseShift = IMAGES['base'].get_width() - IMAGES['background'].get_width()
     # player shm for up-down motion on welcome screen
     playerShmVals = {'val': 0, 'dir': 1}
     while True:
@@ -136,7 +129,6 @@ def showWelcomeAnimation(): # change this
         if (loopIter + 1) % 5 == 0:
             playerIndex = next(playerIndexGen)
         loopIter = (loopIter + 1) % 30
-        basex = -((-basex + 4) % baseShift)
         playerShm(playerShmVals)
         # draw sprites
         SCREEN.blit(IMAGES['background'], (0,0))
@@ -149,11 +141,11 @@ def showWelcomeAnimation(): # change this
 def mainGame(movementInfo):
     try:
         pygame.mixer.music.load(str(os.getcwd())+'/assets/audio/loopsong0.ogg')
-        pygame.mixer.music.set_volume(.6)
+        pygame.mixer.music.set_volume(.4)
         pygame.mixer.music.play(-1)
     except pygame.error:
         pygame.mixer.music.load(str(os.getcwd())+'\\assets\\audio\\loopsong0.wav')
-        pygame.mixer.music.set_volume(.6)
+        pygame.mixer.music.set_volume(.4)
         pygame.mixer.music.play(-1)
     score = playerIndex = loopIter = 0
     playerIndexGen = movementInfo['playerIndexGen']
@@ -220,7 +212,6 @@ def mainGame(movementInfo):
             pipeMidPos = pipe['x'] + IMAGES['pipe'][0].get_width() / 2
             if pipeMidPos <= playerMidPos < pipeMidPos + 4:
                 score += 1
-                SOUNDS['point'].play()
         # playerIndex basex change
         if (loopIter + 1) % 3 == 0:
             playerIndex = next(playerIndexGen)
