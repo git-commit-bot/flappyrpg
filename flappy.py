@@ -47,6 +47,12 @@ PIPES_LIST = (
     'assets/sprites/pipe-green.png',
     'assets/sprites/pipe-red.png',
 )
+ENEMIES_LIST = (
+    'assets/sprites/enemy0.png'
+    'assets/sprites/enemy1.png'
+)
+
+
 try:
     xrange
 except NameError:
