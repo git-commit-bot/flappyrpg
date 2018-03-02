@@ -47,6 +47,7 @@ PIPES_LIST = (
     'assets/sprites/pipe-green.png',
     'assets/sprites/pipe-red.png',
 )
+# list of enemies
 ENEMIES_LIST = (
     'assets/sprites/enemy0.png'
     'assets/sprites/enemy1.png'
@@ -91,7 +92,7 @@ def main():
                 pygame.image.load(PIPES_LIST[pipeindex]).convert_alpha(), 180),
             pygame.image.load(PIPES_LIST[pipeindex]).convert_alpha(),
         )
-        # hismask for pipes
+        # hitmask for pipes
         HITMASKS['pipe'] = (
             getHitmask(IMAGES['pipe'][0]),
             getHitmask(IMAGES['pipe'][1]),
