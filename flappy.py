@@ -64,8 +64,8 @@ def main():
     else:
         soundExt = '.ogg'
     SOUNDS['music']  = pygame.mixer.Sound('assets/audio/soundloop0' + soundExt)
-    SOUNDS['die']    = pygame.mixer.Sound('assets/audio/die' + soundExt)
-    SOUNDS['hit']    = pygame.mixer.Sound('assets/audio/hit' + soundExt)
+    SOUNDS['die']    = pygame.mixer.Sound('assets/audio/docheeu' + soundExt)
+    SOUNDS['hit']    = pygame.mixer.Sound('assets/audio/docheeu' + soundExt)
     SOUNDS['point']  = pygame.mixer.Sound('assets/audio/point' + soundExt)
     SOUNDS['swoosh'] = pygame.mixer.Sound('assets/audio/swoosh' + soundExt)
     SOUNDS['wing']   = pygame.mixer.Sound('assets/audio/wing' + soundExt)
